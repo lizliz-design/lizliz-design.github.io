@@ -10,34 +10,44 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <title>@lizso projects</title>
+    
+    <!-- Simple Password Protection -->
+    <script>
+      (function() {
+                 const PASSWORD = "design2025"; // Change this to your desired password
+        
+        function checkPassword() {
+          const storedAuth = sessionStorage.getItem('site-auth');
+          
+          if (storedAuth === 'authenticated') {
+            return true;
+          }
+          
+          const userPassword = prompt('This site is password protected. Please enter the password:');
+          
+          if (userPassword === PASSWORD) {
+            sessionStorage.setItem('site-auth', 'authenticated');
+            return true;
+          } else if (userPassword !== null) {
+            alert('Incorrect password. Access denied.');
+            return false;
+          } else {
+            return false;
+          }
+        }
+        
+        if (!checkPassword()) {
+          document.addEventListener('DOMContentLoaded', function() {
+            document.body.innerHTML = '<div style="text-align: center; margin-top: 50px; font-family: Monaco, monospace;"><h2>Access Denied</h2><p>This site is password protected.</p><button onclick="location.reload()">Try Again</button></div>';
+          });
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
